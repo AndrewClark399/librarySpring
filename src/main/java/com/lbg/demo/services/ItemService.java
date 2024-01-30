@@ -45,11 +45,19 @@ public class ItemService {
 		}
 		Item existing = found.get();
 
-		existing.setTitle(newItem.getTitle());
-		existing.setEdition(newItem.getEdition());
-		existing.setSection(newItem.getSection());
-		existing.setAvailable(newItem.isAvailable());
-
+		if (newItem.getTitle() != null) {
+			existing.setTitle(newItem.getTitle());
+		}
+		if (newItem.getEdition() != 0) {
+			existing.setEdition(newItem.getEdition());
+		}
+		if (newItem.getSection() != null) {
+			existing.setSection(newItem.getSection());
+		}
+		if (newItem.isAvailable() != false) {
+			existing.setAvailable(newItem.isAvailable());
+			existing.setPerson(newItem.getPerson());
+		}
 		Item body = this.repo.save(existing);
 		return ResponseEntity.ok(body);
 

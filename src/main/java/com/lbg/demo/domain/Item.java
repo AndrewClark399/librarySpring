@@ -1,7 +1,10 @@
 package com.lbg.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
@@ -9,29 +12,21 @@ import jakarta.persistence.ManyToOne;
 public class Item {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private String title;
 	private int edition;
 	private String section;
 	private boolean available;
 
+	@JsonBackReference
 	@ManyToOne
 	private Person person;
 
 	public Item() {
 		super();
 	}
-
-//	public Item(String title, int edition, String section, boolean available) {
-//		super();
-//		this.id = ++count;
-//		setTitle(title);
-//		setEdition(edition);
-//		setSection(section);
-//		setAvailable(available);
-//
-//	}
 
 	public String getTitle() {
 		return title;
@@ -79,12 +74,6 @@ public class Item {
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	@Override
-	public String toString() {
-		return "Id:" + getId() + ", Title: " + title + ", Edition: " + edition + ", Section: " + section
-				+ ", Available: " + available;
 	}
 
 }

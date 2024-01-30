@@ -1,20 +1,30 @@
 package com.lbg.demo.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Person {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	private String name;
 	private int age;
 	private String address;
 	private String tel;
+
+	@JsonManagedReference
+	@OneToMany
+	private List<Item> items;
 
 	public Person() {
 		super();
@@ -60,9 +70,12 @@ public class Person {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Id:" + getId() + ", Name: " + name + ", Age: " + age + ", Address: " + address + ", Tel: " + tel;
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
 }
